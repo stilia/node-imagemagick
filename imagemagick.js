@@ -108,8 +108,29 @@ function parseIdentify(input) {
 
   lines.shift(); //drop first line (Image: name.jpg)
 
+  var xmltag;  // xml fix
   for (i in lines) {
     currentLine = lines[i];
+
+    // xml fix
+    if (/\s*<\?|\!/i.test(currentLine))
+      continue;
+    if(!xmltag) {
+      var xml_match = currentLine.match(/<\w+/i);
+      if(xml_match && xml_match[0]) {
+        xmltag = xml_match[0].replace(/</, '</');
+        continue;
+      }
+    }
+
+    if(xmltag && !currentLine.match(xmltag))
+      continue;
+    else if(xmltag) {
+      xmltag = null;
+      continue;
+    }
+    // xml fix end
+
     indent = currentLine.search(/\S/);
     if (indent >= 0) {
       comps = currentLine.split(': ');
