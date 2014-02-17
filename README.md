@@ -139,7 +139,7 @@ im.resize({
 ```
 
 ### crop(options, callback) ###
-Convenience function for resizing and cropping an image. _crop_ uses the resize method, so _options_ and _callback_ are the same. _crop_ uses _options.srcPath_, so make sure you set it :) Using only _options.width_ or _options.height_ will create a square dimensioned image.  Gravity can also be specified, it defaults to Center.   Available gravity options are [NorthWest, North, NorthEast, West, Center, East, SouthWest, South, SouthEast]
+Convenience function for resizing and cropping an image. _crop_ uses the resize method, so _options_ and _callback_ are the same. _crop_ uses _options.srcPath_, so make sure you set it :) Using only _options.width_ or _options.height_ will create a square dimensioned image.  Gravity can also be specified, it defaults to Center.   Available gravity options are [NorthWest, North, NorthEast, West, Center, East, SouthWest, South, SouthEast]. Image dimensions can be specified to speed up.
 
 Example:
 
@@ -149,6 +149,10 @@ im.crop({
   dstPath: 'cropped.jpg',
   width: 800,
   height: 600,
+  image: {
+    width: 1000,
+    height: 2000
+  },
   quality: 1,
   gravity: "North"
 }, function(err, stdout, stderr){

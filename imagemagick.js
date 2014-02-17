@@ -309,8 +309,8 @@ exports.crop = function (options, callback) {
       data: options.srcData
     };
   }
-
-  exports.identify(args, function(err, meta) {
+  
+  var crop_image = function(err, meta) {
     if (err) return callback && callback(err);
     var t         = exports.resizeArgs(options),
         ignoreArg = false,
@@ -352,7 +352,12 @@ exports.crop = function (options, callback) {
 
     t.args = args;
     resizeCall(t, callback);
-  })
+  };
+
+  if(options.image.width && options.image.height)
+    crop_image(null, options.image);
+  else
+    exports.identify(args, crop_image);
 }
 
 exports.resizeArgs = function(options) {
