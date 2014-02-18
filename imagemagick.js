@@ -354,7 +354,7 @@ exports.crop = function (options, callback) {
     resizeCall(t, callback);
   };
 
-  if(options.image.width && options.image.height)
+  if(options.image && options.image.width && options.image.height)
     crop_image(null, options.image);
   else
     exports.identify(args, crop_image);
