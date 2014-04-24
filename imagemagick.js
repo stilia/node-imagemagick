@@ -174,6 +174,10 @@ exports.identify = function(pathOrArgs, callback) {
         result = stdout;
       } else {
         result = parseIdentify(stdout);
+        // dirty meta fix
+        if(!result['geometry'] || !result.format)
+          return callback('dirty meta', null);
+        // dirty meta fix end
         geometry = result['geometry'].split(/x/);
 
         result.format = result.format.match(/\S*/)[0]
